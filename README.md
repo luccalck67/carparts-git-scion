@@ -34,7 +34,7 @@ O portal neste laboratorio e um modulo de apresentacao testavel, nao um site pub
 - **Benchmark:** tres pares de checkout completo e enxuto, mesmo commit e mesmo teste de API. Artefatos guardam medicoes; ganho nao e presumido.
 - **Documentacao:** workflow opcional filtrado por `paths`.
 
-Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para politica de branches, revisao e commits. O PR inicial permanece aberto ate revisao humana independente. A fila nativa depende de repositorio pertencente a organizacao; nao deve ser apresentada como ativa antes de configurada e verificada.
+Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para politica de branches, revisao e commits. O repositorio pertence a organizacao luccalck67 e possui ruleset de merge queue ativo. @6lucassilvaaa tem acesso de escrita e e o revisor indicado. O PR inicial permanece aberto ate revisao humana independente; a execucao real da fila e a integracao ainda aguardam essa aprovacao.
 
 ## Referencias
 

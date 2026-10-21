@@ -1,6 +1,6 @@
 # E1: diagnostico do repositorio
 
-Repositorio: https://github.com/luccalck/carparts-git-scion
+Repositorio: https://github.com/luccalck67/carparts-git-scion
 
 Coleta inicial em 21/10/2026, apos publicacao do PR 1. Dados brutos em [evidencias/diagnostico.json](evidencias/diagnostico.json). A base foi inicializada pelo GitHub; o codigo foi enviado somente para `feat/politica-e-ci`. O PR permanece sem merge e sem aprovacao humana. Nao houve push direto na main.
 
@@ -14,7 +14,7 @@ Este e um repositorio didatico novo. Nao foram observadas branches com semanas d
 
 ## Checkout e duracao do job
 
-[Benchmark real, run 39672466575](https://github.com/luccalck/carparts-git-scion/actions/runs/39672466575). Tres amostras por estrategia, ubuntu-latest, mesmo SHA de merge temporario `fbb285c915af904ae08d40943badffcc18a8c876`, mesmo teste HTTP/API e sem cache npm. As estrategias foram intercaladas pela fila; o antes/depois e uma comparacao de configuracoes, nao de semanas de operacao.
+[Benchmark real, run 39672466575](https://github.com/luccalck67/carparts-git-scion/actions/runs/39672466575). Tres amostras por estrategia, ubuntu-latest, mesmo SHA de merge temporario `fbb285c915af904ae08d40943badffcc18a8c876`, mesmo teste HTTP/API e sem cache npm. As estrategias foram intercaladas pela fila; o antes/depois e uma comparacao de configuracoes, nao de semanas de operacao.
 
 | Estrategia | Checkout medio | Intervalo de checkout | Job medio |
 | --- | ---: | ---: | ---: |

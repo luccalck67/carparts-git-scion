@@ -48,10 +48,10 @@ Um humano diferente do autor precisa aprovar pela ferramenta de review. Comentar
 | prompts | comportamento, injecao de instrucoes e limites de dados |
 | .github | permissoes, protecao, gatilhos e integridade dos checks |
 
-CODEOWNERS aponta o responsavel atual. Como o PR inicial e do proprio responsavel, ainda precisa de outro responsavel humano com permissao para revisa-lo; nao ha autoaprovacao valida. Na organizacao, atribuir os caminhos a equipes reais. Estas regras por pasta se inspiram no risco considerado pelo Antique, mas nao reproduzem seu motor de revisao semantica.
+CODEOWNERS atribui API, portal e biblioteca a @luccalck e @6lucassilvaaa. Para prompts e workflows, o responsavel e @6lucassilvaaa, revisor diferente do autor deste PR e com acesso de escrita confirmado. O arquivo so passa a reger novos PRs depois de integrado na base. Estas regras por pasta se inspiram no risco considerado pelo Antique, mas nao reproduzem seu motor de revisao semantica.
 
 ## CI e integracao
 
 O gate obrigatorio `quality` depende da verificacao completa do historico e dos testes selecionados por caminhos. Mudancas globais e merge groups executam todos os componentes. Mudancas em libs/ui testam tambem portal. O workflow documental usa `paths`, mas nao e check obrigatorio: assim uma mudanca fora desses caminhos nao deixa a fila esperando um check que nunca inicia.
 
-Executar a merge queue somente depois de aprovacao e checks verdes, em repositorio de organizacao com a fila habilitada. O workflow recebe `merge_group` para validar o conjunto, nao somente cada PR isolado. Configuracao preparada nao equivale a fila ativa; conferir os registros da plataforma.
+O repositorio pertence a organizacao luccalck67. O ruleset ativo "Integracao pela merge queue" exige fila para main, sem atores de bypass. Inserir PR na fila somente depois de aprovacao e checks verdes. O workflow recebe `merge_group` para validar o conjunto, nao somente cada PR isolado. Fila configurada e ativa nao equivale a merge executado: conferir a execucao e a revisao na plataforma.
