@@ -38,6 +38,8 @@ Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para politica de branches, revisao e
 
 ## Referencias
 
+Resultados da pratica: [diagnostico](docs/diagnostico.md), [laboratorio Git](docs/laboratorio-git.md), [parecer Scion](docs/parecer-scion.md) e [medicoes brutas](docs/evidencias/benchmark.json). Protecao exportada por API em [protecao-main.json](docs/evidencias/protecao-main.json); esse arquivo nao substitui as capturas da interface exigidas em E3.
+
 - [Anthropic: Redesigning source control](https://www.anthropic.com/research/redesigning-source-control)
 - [GitHub: merge queue](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue)
 - [actions/checkout](https://github.com/actions/checkout)

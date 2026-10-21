@@ -1,0 +1,102 @@
+{
+  "collected_at": "2026-10-21T20:43:51.358Z",
+  "full": {
+    "n": 3,
+    "mean_checkout_ms": 1026.4165816666666,
+    "min_checkout_ms": 835.400528,
+    "max_checkout_ms": 1143.950593,
+    "mean_job_seconds": 10,
+    "samples": [
+      {
+        "mode": "full",
+        "sample": 1,
+        "run_id": "39672466575",
+        "attempt": "1",
+        "sha": "fbb285c915af904ae08d40943badffcc18a8c876",
+        "checkout_ms": 1143.950593,
+        "git_size": "count: 37\nsize: 156.00 KiB\nin-pack: 0\npacks: 0\nsize-pack: 0 bytes\nprune-packable: 0\ngarbage: 0\nsize-garbage: 0 bytes\n",
+        "method": "wall clock entre steps; inclui overhead do runner, nao apenas transferencia",
+        "job_url": "https://github.com/luccalck/carparts-git-scion/actions/runs/39672466575/job/119473618269",
+        "job_seconds": 12
+      },
+      {
+        "mode": "full",
+        "sample": 2,
+        "run_id": "39672466575",
+        "attempt": "1",
+        "sha": "fbb285c915af904ae08d40943badffcc18a8c876",
+        "checkout_ms": 835.400528,
+        "git_size": "count: 37\nsize: 156.00 KiB\nin-pack: 0\npacks: 0\nsize-pack: 0 bytes\nprune-packable: 0\ngarbage: 0\nsize-garbage: 0 bytes\n",
+        "method": "wall clock entre steps; inclui overhead do runner, nao apenas transferencia",
+        "job_url": "https://github.com/luccalck/carparts-git-scion/actions/runs/39672466575/job/119473618365",
+        "job_seconds": 8
+      },
+      {
+        "mode": "full",
+        "sample": 3,
+        "run_id": "39672466575",
+        "attempt": "1",
+        "sha": "fbb285c915af904ae08d40943badffcc18a8c876",
+        "checkout_ms": 1099.898624,
+        "git_size": "count: 37\nsize: 156.00 KiB\nin-pack: 0\npacks: 0\nsize-pack: 0 bytes\nprune-packable: 0\ngarbage: 0\nsize-garbage: 0 bytes\n",
+        "method": "wall clock entre steps; inclui overhead do runner, nao apenas transferencia",
+        "job_url": "https://github.com/luccalck/carparts-git-scion/actions/runs/39672466575/job/119473618545",
+        "job_seconds": 10
+      }
+    ]
+  },
+  "slim": {
+    "n": 3,
+    "mean_checkout_ms": 1260.3727996666667,
+    "min_checkout_ms": 868.514374,
+    "max_checkout_ms": 1925.515955,
+    "mean_job_seconds": 8.666666666666666,
+    "samples": [
+      {
+        "mode": "slim",
+        "sample": 1,
+        "run_id": "39672466575",
+        "attempt": "1",
+        "sha": "fbb285c915af904ae08d40943badffcc18a8c876",
+        "checkout_ms": 1925.515955,
+        "git_size": "count: 0\nsize: 0 bytes\nin-pack: 23\npacks: 2\nsize-pack: 17.49 KiB\nprune-packable: 0\ngarbage: 0\nsize-garbage: 0 bytes\n",
+        "method": "wall clock entre steps; inclui overhead do runner, nao apenas transferencia",
+        "job_url": "https://github.com/luccalck/carparts-git-scion/actions/runs/39672466575/job/119473618564",
+        "job_seconds": 9
+      },
+      {
+        "mode": "slim",
+        "sample": 2,
+        "run_id": "39672466575",
+        "attempt": "1",
+        "sha": "fbb285c915af904ae08d40943badffcc18a8c876",
+        "checkout_ms": 987.08807,
+        "git_size": "count: 0\nsize: 0 bytes\nin-pack: 23\npacks: 2\nsize-pack: 17.49 KiB\nprune-packable: 0\ngarbage: 0\nsize-garbage: 0 bytes\n",
+        "method": "wall clock entre steps; inclui overhead do runner, nao apenas transferencia",
+        "job_url": "https://github.com/luccalck/carparts-git-scion/actions/runs/39672466575/job/119473618385",
+        "job_seconds": 10
+      },
+      {
+        "mode": "slim",
+        "sample": 3,
+        "run_id": "39672466575",
+        "attempt": "1",
+        "sha": "fbb285c915af904ae08d40943badffcc18a8c876",
+        "checkout_ms": 868.514374,
+        "git_size": "count: 0\nsize: 0 bytes\nin-pack: 23\npacks: 2\nsize-pack: 17.49 KiB\nprune-packable: 0\ngarbage: 0\nsize-garbage: 0 bytes\n",
+        "method": "wall clock entre steps; inclui overhead do runner, nao apenas transferencia",
+        "job_url": "https://github.com/luccalck/carparts-git-scion/actions/runs/39672466575/job/119473618276",
+        "job_seconds": 7
+      }
+    ]
+  },
+  "checkout_change_percent": 22.79349556299144,
+  "job_change_percent": -13.333333333333341,
+  "limitations": [
+    "Tres amostras por estrategia em repositorio pequeno e novo; sem evidencias de ganho sustentado ou causalidade.",
+    "Estrategias comparadas no mesmo SHA, intercaladas por fila de jobs; referencias antes/depois configuracionais, nao semanas distintas.",
+    "Intervalo de checkout inclui overhead de inicializacao entre steps; duracao de job pela API tem precisao de segundos.",
+    "Sem cache npm no benchmark; o cache existe nos jobs do CI. Nao foi isolado nem quantificado seu beneficio.",
+    "Lead time de 11 dias e meta de 2 dias sao dados do enunciado, nao resultados medidos aqui."
+  ]
+}
