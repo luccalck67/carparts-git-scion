@@ -1,0 +1,335 @@
+# Laboratorio Git executado
+Data UTC: 2026-10-21T20:41:50.535Z
+Escopo: repositorio local isolado, sem remoto e sem push. A main citada abaixo e local, nao a main protegida do GitHub.
+O bug e deliberado. Nao representa incidente real da empresa.
+
+$ git init -b main
+Initialized empty Git repository in C:/Users/user/AppData/Local/Temp/carparts-git-lab-CY7Uui/.git/
+
+
+[exit 0]
+
+$ git config user.name Lucca Castilho
+
+
+[exit 0]
+
+$ git config user.email 256704169+luccalck@users.noreply.github.com
+
+
+[exit 0]
+
+$ git add .
+
+warning: in the working copy of 'calc.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'check.cjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'politica.md', LF will be replaced by CRLF the next time Git touches it
+
+[exit 0]
+
+$ git commit -m feat: cria calculo de total e teste
+[main (root-commit) f1715ee] feat: cria calculo de total e teste
+ 3 files changed, 4 insertions(+)
+ create mode 100644 calc.cjs
+ create mode 100644 check.cjs
+ create mode 100644 politica.md
+
+
+[exit 0]
+
+$ git rev-parse HEAD
+f1715ee1305d33f6f3f3300cbc30f9667b98733d
+
+
+[exit 0]
+
+## 1. Conflito e rebase em branch local nunca publicada
+$ git switch -c feat/politica-local
+
+Switched to a new branch 'feat/politica-local'
+
+[exit 0]
+
+$ git add politica.md
+
+warning: in the working copy of 'politica.md', LF will be replaced by CRLF the next time Git touches it
+
+[exit 0]
+
+$ git commit -m docs: limita vida de branch
+[feat/politica-local bfcbf2d] docs: limita vida de branch
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+[exit 0]
+
+$ git switch main
+
+Switched to branch 'main'
+
+[exit 0]
+
+$ git add politica.md
+
+warning: in the working copy of 'politica.md', LF will be replaced by CRLF the next time Git touches it
+
+[exit 0]
+
+$ git commit -m docs: define revisao diaria
+[main 8be71d4] docs: define revisao diaria
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+[exit 0]
+
+$ git switch feat/politica-local
+
+Switched to branch 'feat/politica-local'
+
+[exit 0]
+
+$ git rebase main
+Auto-merging politica.md
+CONFLICT (content): Merge conflict in politica.md
+
+Rebasing (1/1)error: could not apply bfcbf2d... docs: limita vida de branch
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
+Could not apply bfcbf2d... # docs: limita vida de branch
+
+[exit 1]
+
+$ git status --short
+UU politica.md
+
+
+[exit 0]
+
+Resolucao manual aplicada: preserva limite de dois dias e revisao diaria, sem descartar nenhuma intencao.
+$ git add politica.md
+
+warning: in the working copy of 'politica.md', LF will be replaced by CRLF the next time Git touches it
+
+[exit 0]
+
+$ git -c core.editor=true rebase --continue
+[detached HEAD 5d86e33] docs: limita vida de branch
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Successfully rebased and updated refs/heads/feat/politica-local.
+
+[exit 0]
+
+$ C:\Program Files\nodejs\node.exe check.cjs
+Teste de total aprovado
+
+
+[exit 0]
+
+$ git switch main
+
+Switched to branch 'main'
+
+[exit 0]
+
+$ git merge --no-ff feat/politica-local -m docs: integra politica local validada
+Merge made by the 'ort' strategy.
+ politica.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+[exit 0]
+
+$ git rev-parse HEAD
+00a8fd2a8055072b8ef6d02eafe8b6bb082d3f89
+
+
+[exit 0]
+
+## 2. Regressao deliberada e revert na main LOCAL
+$ git add calc.cjs
+
+warning: in the working copy of 'calc.cjs', LF will be replaced by CRLF the next time Git touches it
+
+[exit 0]
+
+$ git commit -m test: insere bug deliberado no calculo
+[main 4c9d7cf] test: insere bug deliberado no calculo
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+[exit 0]
+
+$ git rev-parse HEAD
+4c9d7cf58496d8f28f0e83690cfcd1cf91ec92e3
+
+
+[exit 0]
+
+$ C:\Program Files\nodejs\node.exe check.cjs
+
+node:assert:152
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+12 !== 20
+
+    at Object.<anonymous> (C:\Users\user\AppData\Local\Temp\carparts-git-lab-CY7Uui\check.cjs:1:31)
+    at Module._compile (node:internal/modules/cjs/loader:1830:14)
+    at Object..js (node:internal/modules/cjs/loader:1961:10)
+    at Module.load (node:internal/modules/cjs/loader:1553:32)
+    at Module._load (node:internal/modules/cjs/loader:1355:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 12,
+  expected: 20,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0
+
+[exit 1]
+
+$ git add nota.md
+
+warning: in the working copy of 'nota.md', LF will be replaced by CRLF the next time Git touches it
+
+[exit 0]
+
+$ git commit -m docs: registra cenario de rastreamento
+[main 0f59291] docs: registra cenario de rastreamento
+ 1 file changed, 1 insertion(+)
+ create mode 100644 nota.md
+
+
+[exit 0]
+
+$ git rev-parse HEAD
+0f5929183e14b69ae2feb2b2f1546004b56256e6
+
+
+[exit 0]
+
+$ git revert --no-edit 4c9d7cf58496d8f28f0e83690cfcd1cf91ec92e3
+[main 7ebae6c] Revert "test: insere bug deliberado no calculo"
+ Date: Wed Oct 21 17:41:52 2026 -0300
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+[exit 0]
+
+$ git rev-parse HEAD
+7ebae6c322bf0e4423483788ee743d7c5758501a
+
+
+[exit 0]
+
+$ C:\Program Files\nodejs\node.exe check.cjs
+Teste de total aprovado
+
+
+[exit 0]
+
+O revert cria um novo commit, preservando o commit defeituoso no historico. Nao houve reset nem reescrita.
+## 3. Busca automatizada com git bisect run
+$ git bisect start 0f5929183e14b69ae2feb2b2f1546004b56256e6 00a8fd2a8055072b8ef6d02eafe8b6bb082d3f89
+Bisecting: 0 revisions left to test after this (roughly 0 steps)
+[4c9d7cf58496d8f28f0e83690cfcd1cf91ec92e3] test: insere bug deliberado no calculo
+
+
+[exit 0]
+
+$ git bisect run node check.cjs
+running 'node' 'check.cjs'
+4c9d7cf58496d8f28f0e83690cfcd1cf91ec92e3 is the first bad commit
+commit 4c9d7cf58496d8f28f0e83690cfcd1cf91ec92e3
+Author: Lucca Castilho <256704169+luccalck@users.noreply.github.com>
+Date:   Wed Oct 21 17:41:52 2026 -0300
+
+    test: insere bug deliberado no calculo
+
+ calc.cjs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+bisect found first bad commit
+
+node:assert:152
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+12 !== 20
+
+    at Object.<anonymous> (C:\Users\user\AppData\Local\Temp\carparts-git-lab-CY7Uui\check.cjs:1:31)
+    at Module._compile (node:internal/modules/cjs/loader:1830:14)
+    at Object..js (node:internal/modules/cjs/loader:1961:10)
+    at Module.load (node:internal/modules/cjs/loader:1553:32)
+    at Module._load (node:internal/modules/cjs/loader:1355:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 12,
+  expected: 20,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0
+
+[exit 0]
+
+$ git bisect log
+# bad: [0f5929183e14b69ae2feb2b2f1546004b56256e6] docs: registra cenario de rastreamento
+# good: [00a8fd2a8055072b8ef6d02eafe8b6bb082d3f89] docs: integra politica local validada
+git bisect start '0f5929183e14b69ae2feb2b2f1546004b56256e6' '00a8fd2a8055072b8ef6d02eafe8b6bb082d3f89'
+# bad: [4c9d7cf58496d8f28f0e83690cfcd1cf91ec92e3] test: insere bug deliberado no calculo
+git bisect bad 4c9d7cf58496d8f28f0e83690cfcd1cf91ec92e3
+# first bad commit: [4c9d7cf58496d8f28f0e83690cfcd1cf91ec92e3] test: insere bug deliberado no calculo
+
+
+[exit 0]
+
+$ git bisect reset
+
+Previous HEAD position was 4c9d7cf test: insere bug deliberado no calculo
+Switched to branch 'main'
+
+[exit 0]
+
+$ C:\Program Files\nodejs\node.exe check.cjs
+Teste de total aprovado
+
+
+[exit 0]
+
+$ git log --oneline --graph --all
+* 7ebae6c Revert "test: insere bug deliberado no calculo"
+* 0f59291 docs: registra cenario de rastreamento
+* 4c9d7cf test: insere bug deliberado no calculo
+*   00a8fd2 docs: integra politica local validada
+|\  
+| * 5d86e33 docs: limita vida de branch
+|/  
+* 8be71d4 docs: define revisao diaria
+* f1715ee feat: cria calculo de total e teste
+
+
+[exit 0]
+
+$ git remote -v
+
+
+[exit 0]
+
+Resultado: conflito resolvido, rebase concluido, revert preservou historico e bisect encontrou exatamente o bug inserido.
