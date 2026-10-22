@@ -19,7 +19,7 @@
 | --- | --- | --- |
 | E1, 15% | Diagnostico e benchmark reais, causas priorizadas | Repositorio didatico novo; nao ha serie real da empresa ou reducao de lead time comprovada |
 | E2, 15% | CONTRIBUTING, changelog e revisao tecnica registrados e integrados | Eficacia ao longo de duas semanas nao medida |
-| E3, 20% | PR, quality, fila e CODEOWNERS integrados; capturas diretas e export da API | Revisao do responsavel assistida, nao review independente APPROVED |
+| E3, 20% | PR, quality, fila e CODEOWNERS integrados; capturas diretas e export da API | require_code_owner_reviews=false e zero aprovacoes obrigatorias. Nao cumpre literalmente o revisor obrigatorio de prompts exigido no enunciado; revisao do responsavel assistida, nao review independente APPROVED |
 | E4, 20% | Matriz, paths, cache, checkout seletivo, seis amostras e merge_group executados | Nao ha ganho sustentado de checkout demonstrado |
 | E5, 15% | Tres cenarios locais executados e bisect automatizado | main do laboratorio nao deve ser confundida com a main remota |
 | E6, 15% | Parecer critico com fonte primaria, metricas e integracao comprovada | Nao extrapola os ganhos da Anthropic para este laboratorio |

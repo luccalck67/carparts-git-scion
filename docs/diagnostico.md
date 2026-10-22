@@ -2,7 +2,7 @@
 
 Repositorio: https://github.com/luccalck67/carparts-git-scion
 
-Coleta inicial em 21/10/2026, apos publicacao do PR 1. Dados brutos em [evidencias/diagnostico.json](evidencias/diagnostico.json). A base foi inicializada pelo GitHub; o codigo foi enviado somente para `feat/politica-e-ci`. O PR permanece sem merge e sem aprovacao humana. Nao houve push direto na main.
+Coleta inicial em 21/10/2026, apos publicacao do PR 1. Dados brutos em [evidencias/diagnostico.json](evidencias/diagnostico.json). A base foi inicializada pelo GitHub; o codigo foi enviado somente para `feat/politica-e-ci`. Naquele momento, o PR estava aberto. Posteriormente, foi integrado pela merge queue em 22/10/2026, com CI aprovado e revisao tecnica assistida registrada, conforme [resultado da integracao](resultado-integracao.md). Nao houve push direto na main.
 
 ## Tamanho e branches
 
@@ -27,7 +27,7 @@ O checkout enxuto ficou 22,79% mais lento nessa amostra, enquanto o job foi 13,3
 
 | Prioridade | Causa ou risco | Evidencia e limite | Relacao com lead time |
 | --- | --- | --- | --- |
-| 1 | Integracao sem revisao ou checks | Protecao real exige PR, aprovacao independente e quality; PR aberto sem bypass | Evita retrabalho, mas ausencia de revisor aumenta espera e e o bloqueio atual |
+| 1 | Integracao sem revisao ou checks | Protecao real exige PR, quality e merge queue; revisao tecnica assistida registrada, sem aprovacao independente obrigatoria | Evita integrar sem testes; a espera por revisor foi um bloqueio anterior, nao o estado atual. A obrigatoriedade de revisor para prompts exigida no enunciado nao esta implementada |
 | 2 | Mudancas concorrentes na mesma linha | Conflito real reproduzido no laboratorio e resolvido preservando as duas intencoes | Branch curta reduz janela de divergencia; reducao em dias nao medida |
 | 3 | Dependencia compartilhada ignorada | Portal importa libs/ui; matriz inclui ambos quando biblioteca muda | Evita integrar regressao que falha somente no consumidor |
 | 4 | Checkout desnecessario | Testes usam sparse; benchmark nao demonstrou aceleracao nesta escala | Nao e justificavel atribuir os 11 dias de lead time ao checkout medido em segundos |

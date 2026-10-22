@@ -20,4 +20,4 @@ docs/evidencias/protecao-main.json foi novamente obtido da API administrativa do
 
 ## Limites restantes
 
-O parecer e uma revisao tecnica, nao uma aprovacao formal. O PR permanece aberto; CODEOWNERS ainda nao esta na base. A fila esta configurada, mas merge_group e a integracao nao foram executados. Nao houve bypass, autoaprovacao nem alteracao da main. O revisor precisa conferir o novo HEAD e registrar sua decisao no GitHub.
+Na data deste parecer, havia revisao tecnica, nao aprovacao formal: o PR estava aberto, CODEOWNERS ainda nao estava na base e o merge_group nao havia sido executado. Esse e um registro historico, nao o estado final. Posteriormente, o PR 1 foi integrado pela fila com quality e merge_group aprovados; CODEOWNERS passou a constar na main. A revisao tecnica assistida e a autorizacao do responsavel estao registradas em [revisao-tecnica-final.md](revisao-tecnica-final.md), sem alegacao de review independente APPROVED. Os resultados finais estao em [resultado-integracao.md](resultado-integracao.md).
