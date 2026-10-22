@@ -7,7 +7,7 @@
     "node": ">=24"
   },
   "scripts": {
-    "test": "node --test libs/ui/format.test.mjs apps/api/catalog.test.mjs apps/api/server.test.mjs apps/portal/catalog.test.mjs scripts/ci-components.test.mjs",
+    "test": "node --test libs/ui/format.test.mjs apps/api/catalog.test.mjs apps/api/server.test.mjs apps/portal/catalog.test.mjs scripts/ci-components.test.mjs scripts/osv-report.test.mjs",
     "test:api": "node --test apps/api/catalog.test.mjs apps/api/server.test.mjs",
     "test:portal": "node --test apps/portal/catalog.test.mjs",
     "test:ui": "node --test libs/ui/format.test.mjs",

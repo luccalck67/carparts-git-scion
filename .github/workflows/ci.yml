@@ -49,10 +49,15 @@ jobs:
           package-manager-cache: false
       - name: Verificar prompt, arquivos e historico
         run: node scripts/verify.mjs
-      - name: Auditar dependencias com limite de rede
-        run: timeout 90s npm audit --omit=dev --audit-level=high --fetch-retries=1 --fetch-timeout=30000
+      - name: Auditar lockfile com OSV independente do endpoint npm audit
+        run: |
+          curl --fail --silent --show-error --location --connect-timeout 10 --max-time 60 https://github.com/google/osv-scanner/releases/download/v2.7.0/osv-scanner_linux_amd64 --output "$RUNNER_TEMP/osv-scanner"
+          echo "160c6253e2922e9e0a6a9771c5c4c40a4b3c6090b34a3cdd5e80c96cc2e4218b  $RUNNER_TEMP/osv-scanner" | sha256sum --check
+          chmod +x "$RUNNER_TEMP/osv-scanner"
+          timeout 120s "$RUNNER_TEMP/osv-scanner" scan source --lockfile=package-lock.json --no-resolve --all-packages --all-vulns --format=json --output-file=osv-report.json
+          node scripts/osv-report.mjs osv-report.json
       - name: Testar selecao por caminhos
-        run: node --test scripts/ci-components.test.mjs
+        run: node --test scripts/ci-components.test.mjs scripts/osv-report.test.mjs
       - name: Reproduzir laboratorio Git completo em Ubuntu
         run: node scripts/git-lab.mjs
       - name: Verificar segredos com Gitleaks e checksum fixado
@@ -64,10 +69,12 @@ jobs:
       - name: Gerar changelog sem escrita na main
         run: node scripts/changelog.mjs > changelog.md
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
         with:
           name: changelog-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             changelog.md
+            osv-report.json
             evidencias/git/execucao.log
             evidencias/git/resultado.json
           retention-days: 14
