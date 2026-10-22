@@ -36,7 +36,7 @@ Conventional Commits: `tipo(escopo): descricao`. Tipos aceitos: feat, fix, docs,
 
 Todo PR assistido por agente deve indicar essa origem, a intencao, os riscos, os caminhos alterados e os testes realmente executados. Nao afirmar execucao de teste sem saida verificavel. Nao introduzir .env, tokens, chaves ou dados de clientes, mesmo temporariamente: apagar depois nao limpa o historico.
 
-Um humano diferente do autor precisa aprovar pela ferramenta de review. Comentarios, checkboxes e autoaprovacao nao substituem a aprovacao. Sem revisor disponivel, o PR fica aberto; nao se usa bypass administrativo.
+A revisao tecnica e a decisao de integracao devem ser registradas antes de inserir o PR na fila. Neste fluxo, o proprio responsavel pode revisar com assistencia de ferramentas e autorizar a integracao. Nao se apresenta esse registro como aprovacao independente: o GitHub nao permite que o autor aprove o proprio PR. A protecao exige PR e quality, mas nao aprovacao de outra conta; a merge queue continua obrigatoria, sem bypass administrativo.
 
 ## Revisao por risco
 
@@ -48,7 +48,7 @@ Um humano diferente do autor precisa aprovar pela ferramenta de review. Comentar
 | prompts | comportamento, injecao de instrucoes e limites de dados |
 | .github | permissoes, protecao, gatilhos e integridade dos checks |
 
-CODEOWNERS atribui API, portal e biblioteca a @luccalck e @6lucassilvaaa. Para prompts e workflows, o responsavel e @6lucassilvaaa, revisor diferente do autor deste PR e com acesso de escrita confirmado. O arquivo so passa a reger novos PRs depois de integrado na base. Estas regras por pasta se inspiram no risco considerado pelo Antique, mas nao reproduzem seu motor de revisao semantica.
+CODEOWNERS atribui API, portal e biblioteca a @luccalck e @6lucassilvaaa. Para prompts e workflows, o responsavel indicado e @6lucassilvaaa. Esse mapeamento auxilia a solicitacao de revisao, mas nao e uma aprovacao independente obrigatoria neste fluxo. Estas regras por pasta se inspiram no risco considerado pelo Antique, mas nao reproduzem seu motor de revisao semantica.
 
 ## CI e integracao
 
@@ -56,4 +56,4 @@ O gate obrigatorio `quality` depende da verificacao completa do historico e dos 
 
 Mudancas somente em docs, prompts ou caminhos ainda nao reconhecidos executam todos os componentes por precaucao, alem da auditoria obrigatoria. O custo adicional e aceitavel neste laboratorio pequeno; nao se escolhe arbitrariamente apenas UI. O seletor possui testes automatizados e o laboratorio Git completo tambem e repetido no job audit em Ubuntu.
 
-O repositorio pertence a organizacao luccalck67. O ruleset ativo "Integracao pela merge queue" exige fila para main, sem atores de bypass. Inserir PR na fila somente depois de aprovacao e checks verdes. O workflow recebe `merge_group` para validar o conjunto, nao somente cada PR isolado. Fila configurada e ativa nao equivale a merge executado: conferir a execucao e a revisao na plataforma.
+O repositorio pertence a organizacao luccalck67. O ruleset ativo "Integracao pela merge queue" exige fila para main, sem atores de bypass. Inserir PR na fila somente depois de revisao tecnica registrada, autorizacao de integracao e checks verdes. O workflow recebe `merge_group` para validar o conjunto, nao somente cada PR isolado. Fila configurada e ativa nao equivale a merge executado: conferir a execucao e a revisao na plataforma.

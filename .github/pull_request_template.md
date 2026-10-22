@@ -17,5 +17,6 @@
 
 ## Revisao humana
 
-Aprovacao pela interface de review do GitHub e obrigatoria antes da integracao.
-O autor nao pode aprovar o proprio PR. Nao usar bypass administrativo.
+Registrar revisao tecnica e autorizacao do responsavel antes da integracao.
+Revisao do proprio responsavel nao equivale a review APPROVED no GitHub.
+Nao usar bypass administrativo; integrar somente pela fila e com checks verdes.
