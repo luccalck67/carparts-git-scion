@@ -32,3 +32,11 @@ Este documento registra a revisao e a decisao anteriores a integracao. Os result
 O ajuste separa instalacao e auditoria: npm ci usa ignore-scripts, no-audit e no-fund com uma repeticao e timeout de rede de 30 segundos; a verificacao de vulnerabilidades ocorre explicitamente em npm audit, no job audit, com timeout de comando de 90 segundos e falha propagada ao quality. Jobs de instalacao e benchmark tem limite de cinco minutos. As verificacoes de Gitleaks, de historico e os testes foram mantidos. Actionlint passou novamente.
 
 A tentativa local de npm audit nao concluiu com sucesso: houve timeout no endpoint de advisories. A pagina oficial de status do npm informou partial_outage para Package installation e incidente Degraded Package Install and Publishing, em investigacao. Isso e impedimento externo, nao resultado aprovado ou evidencia de vulnerabilidade encontrada. Nao foi repetida a consulta de auditoria em loop, nem descartada sua falha para integrar. Fonte: https://status.npmjs.org/
+
+## Revisao complementar: auditoria OSV
+
+Codigo revisado: 334dc971ed28e0b2dc72f8f5a55639fb34a89d83. A auditoria bloqueante passou a usar OSV-Scanner oficial 2.7.0, com SHA-256 fixado. A verificacao local examinou os 65 pacotes e versoes do lockfile e retornou zero vulnerabilidades encontradas na base consultada. O verificador adicional exige cobertura completa e rejeita relatorios vazios, versoes divergentes e resultados vulneraveis. A suite passou em 24 testes locais; actionlint e verificacao do historico tambem passaram.
+
+Foi conferido que nao ha continue-on-error, resultado verde sintetico ou descarte do exit code do scanner. O artefato e preservado com always, sem mudar o resultado de falha do job. O gate quality continua exigindo todos os jobs aprovados. Os checks antigos de npm audit continuam falhos no historico; nao foram apagados nem reinterpretados.
+
+Resultado da revisao tecnica complementar: apto a integracao condicionada ao CI do HEAD e ao merge_group real. A autorizacao de integracao do responsavel permanece registrada, sem evento APPROVED independente ficticio. Escopo e limites das duas bases de vulnerabilidades estao descritos em docs/auditoria-dependencias.md.
