@@ -27,22 +27,12 @@ jobs:
           node --input-type=module <<'JS'
           import { execFileSync } from 'node:child_process';
           import { appendFileSync } from 'node:fs';
-          const all = [
-            { component: 'api', paths: 'apps/api\nlibs/ui' },
-            { component: 'portal', paths: 'apps/portal\nlibs/ui' },
-            { component: 'ui', paths: 'libs/ui' }
-          ];
-          let selected = all;
+          import { selectComponents } from './scripts/ci-components.mjs';
+          let files = [];
           if (process.env.EVENT_NAME === 'pull_request') {
-            const files = execFileSync('git', ['diff', '--name-only', `${process.env.BASE_SHA}...${process.env.HEAD_SHA}`], { encoding: 'utf8' }).trim().split('\n');
-            const global = files.some(f => /^(package(-lock)?\.json|scripts\/|\.github\/|\.gitattributes)/.test(f));
-            if (!global) {
-              selected = all.filter(({ component }) => files.some(f =>
-                f.startsWith(component === 'ui' ? 'libs/ui/' : `apps/${component}/`) ||
-                (component === 'portal' && f.startsWith('libs/ui/'))));
-              if (!selected.length) selected = [all[2]];
-            }
+            files = execFileSync('git', ['diff', '--name-only', `${process.env.BASE_SHA}...${process.env.HEAD_SHA}`], { encoding: 'utf8' }).trim().split('\n');
           }
+          const selected = selectComponents(files, process.env.EVENT_NAME);
           appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${JSON.stringify({ include: selected })}\n`);
           console.log(JSON.stringify(selected));
           JS
@@ -59,6 +49,10 @@ jobs:
           package-manager-cache: false
       - name: Verificar prompt, arquivos e historico
         run: node scripts/verify.mjs
+      - name: Testar selecao por caminhos
+        run: node --test scripts/ci-components.test.mjs
+      - name: Reproduzir laboratorio Git completo em Ubuntu
+        run: node scripts/git-lab.mjs
       - name: Verificar segredos com Gitleaks e checksum fixado
         run: |
           curl --fail --silent --show-error --location https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz --output "$RUNNER_TEMP/gitleaks.tar.gz"
@@ -70,7 +64,10 @@ jobs:
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: changelog-${{ github.run_id }}-${{ github.run_attempt }}
-          path: changelog.md
+          path: |
+            changelog.md
+            evidencias/git/execucao.log
+            evidencias/git/resultado.json
           retention-days: 14
   tests:
     needs: changes

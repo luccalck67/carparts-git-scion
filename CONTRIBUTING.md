@@ -54,4 +54,6 @@ CODEOWNERS atribui API, portal e biblioteca a @luccalck e @6lucassilvaaa. Para p
 
 O gate obrigatorio `quality` depende da verificacao completa do historico e dos testes selecionados por caminhos. Mudancas globais e merge groups executam todos os componentes. Mudancas em libs/ui testam tambem portal. O workflow documental usa `paths`, mas nao e check obrigatorio: assim uma mudanca fora desses caminhos nao deixa a fila esperando um check que nunca inicia.
 
+Mudancas somente em docs, prompts ou caminhos ainda nao reconhecidos executam todos os componentes por precaucao, alem da auditoria obrigatoria. O custo adicional e aceitavel neste laboratorio pequeno; nao se escolhe arbitrariamente apenas UI. O seletor possui testes automatizados e o laboratorio Git completo tambem e repetido no job audit em Ubuntu.
+
 O repositorio pertence a organizacao luccalck67. O ruleset ativo "Integracao pela merge queue" exige fila para main, sem atores de bypass. Inserir PR na fila somente depois de aprovacao e checks verdes. O workflow recebe `merge_group` para validar o conjunto, nao somente cada PR isolado. Fila configurada e ativa nao equivale a merge executado: conferir a execucao e a revisao na plataforma.

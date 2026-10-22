@@ -43,8 +43,8 @@ try {
   git('add', 'politica.md');
   git('commit', '-m', 'docs: define revisao diaria');
   git('switch', 'feat/politica-local');
-  const conflict = run('git', ['rebase', 'main'], [1]);
-  if (!/CONFLICT/.test(conflict)) throw new Error('Conflito esperado nao ocorreu');
+  run('git', ['rebase', 'main'], [1]);
+  if (git('diff', '--name-only', '--diff-filter=U') !== 'politica.md') throw new Error('Conflito esperado nao ocorreu');
   git('status', '--short');
   lines.push('Resolucao manual aplicada: preserva limite de dois dias e revisao diaria, sem descartar nenhuma intencao.');
   file('politica.md', 'Limite: dois dias uteis; revisar diariamente\n');
@@ -70,8 +70,9 @@ try {
   lines.push('O revert cria um novo commit, preservando o commit defeituoso no historico. Nao houve reset nem reescrita.');
   lines.push('## 3. Busca automatizada com git bisect run');
   git('bisect', 'start', bad, good);
-  const bisect = run('git', ['bisect', 'run', 'node', 'check.cjs']);
-  if (!bisect.includes(`${bug} is the first bad commit`)) throw new Error('Bisect nao identificou o SHA esperado');
+  run('git', ['bisect', 'run', 'node', 'check.cjs']);
+  const identified = git('rev-parse', 'HEAD');
+  if (identified !== bug) throw new Error(`Bisect identificou ${identified}, esperado ${bug}`);
   git('bisect', 'log');
   git('bisect', 'reset');
   run(process.execPath, ['check.cjs']);
@@ -80,7 +81,7 @@ try {
   if (remotes) throw new Error('Laboratorio deve estar sem remoto');
   writeFileSync(join(output, 'resultado.json'), JSON.stringify({
     timestamp: new Date().toISOString(), scope: 'local-only-no-remote', initial, good,
-    bug, bad, revert, bisect_identified: bug, tests_after_revert: 'passed',
+    bug, bad, revert, bisect_identified: identified, tests_after_revert: 'passed',
     remote_revert_via_reviewed_pr: 'not-executed',
     repository_on_disk: repo
   }, null, 2));
