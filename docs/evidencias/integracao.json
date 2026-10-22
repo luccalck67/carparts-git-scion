@@ -1,0 +1,41 @@
+{
+  "repository": "luccalck67/carparts-git-scion",
+  "pull_request": {
+    "head_sha": "5931df58a654a5647fdf0d8ebaac2313c49d30dd",
+    "html_url": "https://github.com/luccalck67/carparts-git-scion/pull/1",
+    "merge_commit_sha": "bfb9bc48c61bfa31454b700b76ee3e01440a5d54",
+    "merged": true,
+    "merged_at": "2026-10-22T03:08:13Z",
+    "merged_by": "luccalck",
+    "number": 1,
+    "state": "closed"
+  },
+  "ci_pull_request": {
+    "conclusion": "success",
+    "event": "pull_request",
+    "head_sha": "5931df58a654a5647fdf0d8ebaac2313c49d30dd",
+    "html_url": "https://github.com/luccalck67/carparts-git-scion/actions/runs/39714992357",
+    "id": 39714992357,
+    "run_attempt": 1,
+    "status": "completed"
+  },
+  "ci_merge_group": {
+    "conclusion": "success",
+    "event": "merge_group",
+    "head_sha": "bfb9bc48c61bfa31454b700b76ee3e01440a5d54",
+    "html_url": "https://github.com/luccalck67/carparts-git-scion/actions/runs/39715139786",
+    "id": 39715139786,
+    "run_attempt": 1,
+    "status": "completed"
+  },
+  "review_mode": "Revisao tecnica assistida e autorizacao do responsavel registradas; sem review independente APPROVED",
+  "dependency_audit": {
+    "tool": "OSV-Scanner",
+    "version": "2.7.0",
+    "lockfile_packages": 65,
+    "covered_packages": 65,
+    "findings": 0,
+    "artifact_run": 39715139786
+  },
+  "bypass_used": false
+}
