@@ -1,0 +1,24 @@
+name: Documentacao
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+      - '.github/CODEOWNERS'
+      - '.github/workflows/docs.yml'
+permissions:
+  contents: read
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Verificar politica e dono dos prompts
+        run: |
+          test -s README.md
+          test -s CONTRIBUTING.md
+          grep -q '^/prompts/ @' .github/CODEOWNERS
+          grep -q 'dois dias uteis' CONTRIBUTING.md
+          grep -q 'Conventional Commits' CONTRIBUTING.md

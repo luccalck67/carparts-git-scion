@@ -1,0 +1,38 @@
+{
+  "collected_at": "2026-10-21T20:43:41.116Z",
+  "repository": "luccalck/carparts-git-scion",
+  "branch": "feat/politica-e-ci",
+  "count_objects": "count: 33\nsize: 21.08 KiB\nin-pack: 3\npacks: 1\nsize-pack: 2.05 KiB\nprune-packable: 0\ngarbage: 0\nsize-garbage: 0 bytes",
+  "refs": [
+    {
+      "ref": "refs/heads/feat/politica-e-ci",
+      "name": "feat/politica-e-ci",
+      "sha": "de7b29c784dff4e1978f708bf1f30d211c5d0614",
+      "last_commit": "2026-10-21T17:41:06-03:00",
+      "hours_since_last_commit": 0.04308777777777778
+    },
+    {
+      "ref": "refs/heads/main",
+      "name": "main",
+      "sha": "0dd88e609760200a73622bbb0a0b99016b1f84c9",
+      "last_commit": "2026-10-21T17:36:27-03:00",
+      "hours_since_last_commit": 0.12058777777777778
+    },
+    {
+      "ref": "refs/remotes/origin/feat/politica-e-ci",
+      "name": "origin/feat/politica-e-ci",
+      "sha": "de7b29c784dff4e1978f708bf1f30d211c5d0614",
+      "last_commit": "2026-10-21T17:41:06-03:00",
+      "hours_since_last_commit": 0.04308777777777778
+    },
+    {
+      "ref": "refs/remotes/origin/main",
+      "name": "origin/main",
+      "sha": "0dd88e609760200a73622bbb0a0b99016b1f84c9",
+      "last_commit": "2026-10-21T17:36:27-03:00",
+      "hours_since_last_commit": 0.12058777777777778
+    }
+  ],
+  "local_branches": 2,
+  "local_note": "Idade calculada pelo ultimo commit, nao pela criacao da branch. Repositorio novo; nao representa o historico da empresa."
+}

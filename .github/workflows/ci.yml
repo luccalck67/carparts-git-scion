@@ -1,0 +1,110 @@
+name: CI
+on:
+  pull_request:
+  merge_group:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.select.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - id: select
+        name: Selecionar componentes por caminhos
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          node --input-type=module <<'JS'
+          import { appendFileSync } from 'node:fs';
+          import { selectComponents, changedFiles } from './scripts/ci-components.mjs';
+          let files = [];
+          if (process.env.EVENT_NAME === 'pull_request') {
+            files = changedFiles(process.env.BASE_SHA, process.env.HEAD_SHA);
+          }
+          const selected = selectComponents(files, process.env.EVENT_NAME);
+          appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${JSON.stringify({ include: selected })}\n`);
+          console.log(JSON.stringify(selected));
+          JS
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Verificar prompt, arquivos e historico
+        run: node scripts/verify.mjs
+      - name: Auditar lockfile com OSV independente do endpoint npm audit
+        run: |
+          curl --fail --silent --show-error --location --connect-timeout 10 --max-time 60 https://github.com/google/osv-scanner/releases/download/v2.7.0/osv-scanner_linux_amd64 --output "$RUNNER_TEMP/osv-scanner"
+          echo "160c6253e2922e9e0a6a9771c5c4c40a4b3c6090b34a3cdd5e80c96cc2e4218b  $RUNNER_TEMP/osv-scanner" | sha256sum --check
+          chmod +x "$RUNNER_TEMP/osv-scanner"
+          timeout 120s "$RUNNER_TEMP/osv-scanner" scan source --lockfile=package-lock.json --no-resolve --all-packages --all-vulns --format=json --output-file=osv-report.json
+          node scripts/osv-report.mjs osv-report.json
+      - name: Testar selecao por caminhos
+        run: node --test scripts/ci-components.test.mjs scripts/osv-report.test.mjs
+      - name: Reproduzir laboratorio Git completo em Ubuntu
+        run: node scripts/git-lab.mjs
+      - name: Verificar segredos com Gitleaks e checksum fixado
+        run: |
+          curl --fail --silent --show-error --location https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz --output "$RUNNER_TEMP/gitleaks.tar.gz"
+          echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  $RUNNER_TEMP/gitleaks.tar.gz" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/gitleaks.tar.gz" -C "$RUNNER_TEMP" gitleaks
+          "$RUNNER_TEMP/gitleaks" git --redact --no-banner --log-opts="--all" .
+      - name: Gerar changelog sem escrita na main
+        run: node scripts/changelog.mjs > changelog.md
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: changelog-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            changelog.md
+            osv-report.json
+            evidencias/git/execucao.log
+            evidencias/git/resultado.json
+          retention-days: 14
+  tests:
+    needs: changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.changes.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+          sparse-checkout: ${{ matrix.paths }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --ignore-scripts --no-audit --no-fund --fetch-retries=1 --fetch-timeout=30000
+      - run: npm run test:${{ matrix.component }}
+  quality:
+    if: always()
+    needs: [changes, audit, tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exigir conclusao de todos os checks
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          node -e 'const needs = JSON.parse(process.env.RESULTS); if (Object.values(needs).some(job => job.result !== "success")) process.exit(1); console.log("Checks obrigatorios aprovados");'

@@ -1,0 +1,21 @@
+{
+  "name": "carparts-git-scion",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test libs/ui/format.test.mjs apps/api/catalog.test.mjs apps/api/server.test.mjs apps/portal/catalog.test.mjs scripts/ci-components.test.mjs scripts/osv-report.test.mjs",
+    "test:api": "node --test apps/api/catalog.test.mjs apps/api/server.test.mjs",
+    "test:portal": "node --test apps/portal/catalog.test.mjs",
+    "test:ui": "node --test libs/ui/format.test.mjs",
+    "start": "node apps/api/server.mjs",
+    "verify": "node scripts/verify.mjs",
+    "changelog": "node scripts/changelog.mjs"
+  },
+  "dependencies": {
+    "express": "5.3.0"
+  }
+}

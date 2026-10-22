@@ -1,0 +1,5 @@
+* text=auto
+*.mjs text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+docs/evidencias/*.log -whitespace
