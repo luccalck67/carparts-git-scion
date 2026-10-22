@@ -4,7 +4,7 @@
     "url": "https://github.com/luccalck67/carparts-git-scion/rules/25593044",
     "title": "Rulesets · carparts-git-scion · GitHub",
     "http": 200,
-    "captured_at": "2026-10-22T03:10:06.551399+00:00",
+    "captured_at": "2026-10-22T03:12:58.042361+00:00",
     "method": "Captura direta do Chromium da pagina publica, sem composicao ou alteracao visual"
   },
   {
@@ -12,12 +12,15 @@
     "url": "https://github.com/luccalck67/carparts-git-scion/pull/1",
     "title": "feat: implementa monorepo e politica de integracao by luccalck · Pull Request #1 · luccalck67/carparts-git-scion",
     "http": 200,
-    "captured_at": "2026-10-22T03:10:10.181214+00:00",
+    "captured_at": "2026-10-22T03:13:05.079375+00:00",
     "method": "Captura direta do Chromium da pagina publica, sem composicao ou alteracao visual"
   },
   {
     "name": "03-merge-group",
     "url": "https://github.com/luccalck67/carparts-git-scion/actions/runs/39715139786",
-    "error": "'charmap' codec can't encode character '\\u2060' in position 867: character maps to <undefined>"
+    "title": "CI · luccalck67/carparts-git-scion@bfb9bc4 · GitHub",
+    "http": 200,
+    "captured_at": "2026-10-22T03:13:09.219858+00:00",
+    "method": "Captura direta do Chromium da pagina publica, sem composicao ou alteracao visual"
   }
 ]
