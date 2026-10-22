@@ -2,7 +2,7 @@
 
 ## Resultados confirmados
 
-- Oito testes locais aprovados, inclusive HTTP real; CI e gate quality aprovados no GitHub Actions.
+- Vinte testes locais aprovados na versao corrigida, inclusive HTTP real, caminhos mistos e rename entre componentes. As versoes anteriores tinham oito e depois 16 testes; esses numeros pertencem as respectivas execucoes historicas.
 - Gitleaks 8.30.1 executado localmente e no CI com binario e checksum fixados; nenhuma ocorrencia encontrada. Isso nao prova ausencia absoluta de qualquer segredo.
 - Workflow validado por actionlint 1.7.12, sem shellcheck ou pyflakes nesta maquina.
 - Tres amostras completas e tres enxutas com logs, SHA e tempos. Sem ganho de checkout demonstrado nesta amostra.

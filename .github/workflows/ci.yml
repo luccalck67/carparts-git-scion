@@ -25,12 +25,11 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           node --input-type=module <<'JS'
-          import { execFileSync } from 'node:child_process';
           import { appendFileSync } from 'node:fs';
-          import { selectComponents } from './scripts/ci-components.mjs';
+          import { selectComponents, changedFiles } from './scripts/ci-components.mjs';
           let files = [];
           if (process.env.EVENT_NAME === 'pull_request') {
-            files = execFileSync('git', ['diff', '--name-only', `${process.env.BASE_SHA}...${process.env.HEAD_SHA}`], { encoding: 'utf8' }).trim().split('\n');
+            files = changedFiles(process.env.BASE_SHA, process.env.HEAD_SHA);
           }
           const selected = selectComponents(files, process.env.EVENT_NAME);
           appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${JSON.stringify({ include: selected })}\n`);

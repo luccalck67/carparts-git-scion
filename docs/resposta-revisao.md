@@ -12,7 +12,7 @@ O script corrigido concluiu localmente com codigo zero, identificou o bug 91b5d7
 
 O fallback exclusivo para UI foi removido. Documentacao, prompts e caminhos nao reconhecidos executam todos os componentes por precaucao. API e portal continuam seletivos; mudanca em libs/ui inclui portal e UI; mudancas globais e merge_group executam tudo. A politica e explicita em CONTRIBUTING.
 
-O seletor foi extraido para scripts/ci-components.mjs, com oito testes de regressao. A suite local completa passou em 16 testes. O job audit executa os oito testes do seletor, alem dos testes de componentes nos demais jobs. Actionlint passou para os tres workflows; shellcheck e pyflakes nao foram executados nesta maquina.
+Na primeira correcao, o seletor foi extraido com oito testes e a suite local passou em 16 testes. Na segunda revisao, a extracao passou a usar `git diff --no-renames --name-only -z`, incluindo origem e destino de renomes, e qualquer caminho desconhecido aciona todos os componentes, mesmo junto de API ou portal. A suite atual passou em 20 testes: oito dos componentes e 12 do seletor, incluindo um repositorio Git temporario com rename real R100. O job audit executa os testes do seletor. Actionlint passou para os tres workflows; shellcheck e pyflakes nao foram executados nesta maquina.
 
 ## 3. Protecao atual
 
