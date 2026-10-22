@@ -37,6 +37,7 @@ jobs:
           JS
   audit:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -48,6 +49,8 @@ jobs:
           package-manager-cache: false
       - name: Verificar prompt, arquivos e historico
         run: node scripts/verify.mjs
+      - name: Auditar dependencias com limite de rede
+        run: timeout 90s npm audit --omit=dev --audit-level=high --fetch-retries=1 --fetch-timeout=30000
       - name: Testar selecao por caminhos
         run: node --test scripts/ci-components.test.mjs
       - name: Reproduzir laboratorio Git completo em Ubuntu
@@ -71,6 +74,7 @@ jobs:
   tests:
     needs: changes
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.changes.outputs.matrix) }}
@@ -85,7 +89,7 @@ jobs:
           node-version: '24'
           cache: npm
           cache-dependency-path: package-lock.json
-      - run: npm ci --ignore-scripts
+      - run: npm ci --ignore-scripts --no-audit --no-fund --fetch-retries=1 --fetch-timeout=30000
       - run: npm run test:${{ matrix.component }}
   quality:
     if: always()
