@@ -6,10 +6,10 @@
 - Gitleaks 8.30.1 executado localmente e no CI com binario e checksum fixados; nenhuma ocorrencia encontrada. Isso nao prova ausencia absoluta de qualquer segredo.
 - Workflow validado por actionlint 1.7.12, sem shellcheck ou pyflakes nesta maquina.
 - Tres amostras completas e tres enxutas com logs, SHA e tempos. Sem ganho de checkout demonstrado nesta amostra.
-- Protecao de main consultada por API: revisao e checks obrigatorios inclusive para administradores; sem permissao de force push/exclusao.
+- Protecao de main consultada por API: PR, quality do GitHub Actions e merge queue obrigatorios inclusive para administradores; sem permissao de force push/exclusao. O fluxo atual registra revisao tecnica assistida e autorizacao do responsavel, sem exigir aprovacao de outra conta.
 - PR 1 aberto e sem merge. Nenhuma aprovacao foi simulada e nenhum bypass foi usado.
 - Repositorio transferido para luccalck67, com @6lucassilvaaa membro da organizacao e acesso write confirmado.
-- Ruleset 25593044 ativo, exigindo merge queue na main, sem bypass. Execucao da fila ainda nao validada, pois o PR aguarda aprovacao.
+- Ruleset 25593044 ativo, exigindo PR, quality e merge queue na main, sem bypass. Execucao da fila ainda nao validada; o CI depende da normalizacao da instalacao npm.
 - Conflito/rebase, revert e bisect executados em laboratorio local isolado, com log comentado e teste automatizado.
 
 ## Conferencia da rubrica
@@ -17,8 +17,8 @@
 | Item | Estado | Limite para a entrega final |
 | --- | --- | --- |
 | E1, 15% | Diagnostico e benchmark reais, causas priorizadas | Repositorio didatico novo; nao ha serie real da empresa ou reducao de lead time comprovada |
-| E2, 15% | CONTRIBUTING e geracao automatizada de changelog publicados em PR | Politica ainda aguarda revisao e integracao na base |
-| E3, 20% | Protecao e merge queue ativas na organizacao, CODEOWNERS proposto por pasta | Faltam revisao independente, execucao da fila, CODEOWNERS na base e capturas reais das configuracoes |
+| E2, 15% | CONTRIBUTING, changelog e revisao tecnica registrados | Integracao na base ainda depende do CI |
+| E3, 20% | PR, quality e merge queue ativos na organizacao; CODEOWNERS por pasta | Revisao tecnica assistida registrada, sem review independente; fila e integracao ainda nao executadas |
 | E4, 20% | Matriz, paths, cache, checkout seletivo e seis amostras executados | Evento merge_group preparado, ainda sem execucao pela fila; nao ha ganho sustentado demonstrado |
 | E5, 15% | Tres cenarios locais executados e bisect automatizado | main do laboratorio nao deve ser confundida com a main remota |
 | E6, 15% | Parecer critico com fonte primaria e metricas | Distingue configuracao ativa da execucao da fila e revisao pendentes |
@@ -27,9 +27,9 @@ Nao e uma entrega 100% concluida nem ha garantia de nota maxima. As pendencias s
 
 ## Como concluir as dependencias externas
 
-1. @6lucassilvaaa revisa a mudanca e registra sua decisao pelo GitHub, depois de conferir o codigo e os testes. O autor nao aprova o proprio PR.
-2. Se a revisao exigir correcao, publicar a correcao e repetir os checks e a revisao; nao descartar feedback para concluir a atividade.
-3. Com aprovacao e checks verdes, adicionar o PR a merge queue, validar merge_group em execucao real e integrar pelo fluxo aprovado, sem bypass.
-4. Tirar capturas reais da protecao, revisores/CODEOWNERS e fila; acrescentar links das execucoes e atualizar o HTML com esses resultados.
+1. Aguardar a normalizacao do servico npm e confirmar os checks do HEAD atual, sem dispensar falhas de rede ou de auditoria.
+2. A revisao tecnica e a autorizacao do responsavel estao registradas; se houver nova correcao, repetir a revisao do codigo alterado.
+3. Com checks verdes, adicionar o PR a merge queue, validar merge_group em execucao real e integrar sem bypass.
+4. Preservar capturas diretas da pagina de regras e do PR, acrescentar os registros da execucao e atualizar o HTML com resultados efetivos.
 
-Configuracao registrada nao substitui execucao, logs nao substituem as capturas especificamente exigidas em E3, e comentario no PR nao substitui aprovacao independente.
+Configuracao registrada nao substitui execucao. Revisao tecnica assistida nao e review independente APPROVED. A auditoria npm terminou com timeout durante indisponibilidade parcial publicada pelo servico; nao foi declarada aprovada. As capturas devem ser diretas da interface real, nunca simuladas.

@@ -2,7 +2,7 @@
 
 Responsavel: Lucca Castilho Costa.
 
-Codigo examinado: f2b820513fb8496e529afc9d66a258d3629a3f45. Revisao tecnica realizada com assistencia de IA. A integracao foi autorizada pelo responsavel na solicitacao desta execucao. Este registro nao representa aprovacao independente nem um evento APPROVED da interface do GitHub.
+Codigo examinado: f2b820513fb8496e529afc9d66a258d3629a3f45; ajuste posterior de limites de rede examinado em 55b124344cd7ff4c38a8211860cdcafb334410a5. Revisao tecnica realizada com assistencia de IA. A integracao foi autorizada pelo responsavel na solicitacao desta execucao. Este registro nao representa aprovacao independente nem um evento APPROVED da interface do GitHub.
 
 ## Escopo conferido
 
@@ -26,3 +26,9 @@ Resultado da revisao tecnica: apto a integracao, condicionado ao CI do novo HEAD
 O fluxo exige PR e merge queue, sem bypass. A protecao usa zero aprovacoes de outra conta, pois o GitHub nao permite autoaprovacao do autor. CODEOWNERS permanece como mapeamento de responsabilidades, nao como aprovacao independente obrigatoria. Quality e vinculado ao aplicativo GitHub Actions. Builds, segredos e reescrita de historico continuam bloqueados conforme as verificacoes e regras aplicadas.
 
 Este documento registra a revisao e a decisao anteriores a integracao. Os resultados de CI, da fila e do merge precisam ser consultados nos registros reais; nao sao presumidos por este parecer.
+
+## Verificacao do ajuste de rede
+
+O ajuste separa instalacao e auditoria: npm ci usa ignore-scripts, no-audit e no-fund com uma repeticao e timeout de rede de 30 segundos; a verificacao de vulnerabilidades ocorre explicitamente em npm audit, no job audit, com timeout de comando de 90 segundos e falha propagada ao quality. Jobs de instalacao e benchmark tem limite de cinco minutos. As verificacoes de Gitleaks, de historico e os testes foram mantidos. Actionlint passou novamente.
+
+A tentativa local de npm audit nao concluiu com sucesso: houve timeout no endpoint de advisories. A pagina oficial de status do npm informou partial_outage para Package installation e incidente Degraded Package Install and Publishing, em investigacao. Isso e impedimento externo, nao resultado aprovado ou evidencia de vulnerabilidade encontrada. Nao foi repetida a consulta de auditoria em loop, nem descartada sua falha para integrar. Fonte: https://status.npmjs.org/
