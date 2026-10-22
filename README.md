@@ -34,7 +34,7 @@ O portal neste laboratorio e um modulo de apresentacao testavel, nao um site pub
 - **Benchmark:** tres pares de checkout completo e enxuto, mesmo commit e mesmo teste de API. Artefatos guardam medicoes; ganho nao e presumido.
 - **Documentacao:** workflow opcional filtrado por `paths`.
 
-Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para politica de branches, revisao e commits. O repositorio pertence a organizacao luccalck67 e possui ruleset ativo para PR, merge queue, quality do GitHub Actions e bloqueio de force push/exclusao, sem bypass. A [revisao tecnica assistida e autorizacao de integracao](docs/revisao-tecnica-final.md) estao registradas; nao representam review independente APPROVED. A integracao depende de CI e merge_group aprovados. O status real deve ser conferido no PR e no Actions.
+Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para politica de branches, revisao e commits. O repositorio pertence a organizacao luccalck67 e possui ruleset ativo para PR, merge queue, quality do GitHub Actions e bloqueio de force push/exclusao, sem bypass. A [revisao tecnica assistida e autorizacao de integracao](docs/revisao-tecnica-final.md) estao registradas; nao representam review independente APPROVED. O [PR 1 foi integrado pela fila com CI e merge_group aprovados](docs/resultado-integracao.md).
 
 ## Referencias
 
